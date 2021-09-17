@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
+    </configSections>
+    <log4net debug="false">
+        <appender name="PoSH_fsLog" type="log4net.Appender.RollingFileAppender">
+            <file type="log4net.Util.PatternString" value="%property{LogPath}\%date{yyyyMMdd}\%property{ScriptName}-%date{HHmmss}.log" />
+            <!--<file type="log4net.Util.PatternString" value="C:\ProgramData\IDF\Logs\%date{yyyyMMdd}\%property{ScriptName}-%date{HHmmss}.log" />-->
+            <param name="staticLogFileName" value="true" />
+            <param name="appendToFile" value="true" />
+            <param name="rollingStyle" value="Size" />
+            <param name="maximumFileSize" value="50MB" />
+            <param name="maxSizeRollBackups" value="10" />
+            <layout type="log4net.Layout.PatternLayout">
+                <conversionPattern value="%d %c [Line:%property{ScriptLineNumber}] %-5p : %m (%property{PSCallStack})%n" />
+            </layout>
+        </appender>
+        <appender name="PoSH_EventLog" type="log4net.Appender.EventLogAppender" >
+            <layout type="log4net.Layout.PatternLayout">
+                <conversionPattern value="%d %c [Line:%property{ScriptLineNumber}] %-5p : %m (%property{PSCallStack})%n" />
+            </layout>
+        </appender>
+        <root>
+            <level value="DEBUG" />
+            <appender-ref ref="PoSH_fsLog" />
+        </root>
+    </log4net>
+</configuration>
